@@ -1,7 +1,7 @@
 package com.inditex.prices.controller;
 
 import com.inditex.prices.dto.PriceDTO;
-import com.inditex.prices.service.PriceService;
+import com.inditex.prices.service.PriceServiceImpl;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class PriceControllerTest {
 	private MockMvc mockMvc;
 
 	@MockBean
-	private PriceService priceService;
+	private PriceServiceImpl priceService;
 
 	@ParameterizedTest
 	@MethodSource("provideTestCases")
