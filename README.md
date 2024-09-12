@@ -91,7 +91,40 @@ The application follows a layered architecture:
 
     The application will be available at http://localhost:8080. You can use tools like Postman or cURL to interact with the API.
 
-    
+
+## Running the app
+
+Since the H2 database is in server mode, first of all, it will be necessary to run the H2 app and click "connect". 
+Otherwise, we can get the next error:
+
+```
+INFO 17500 --- [           main]
+com.zaxxer.hikari.HikariDataSource       : HikariPool-1 – Starting…​
+ERROR 17500 --- [           main]
+com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.​
+org.h2.jdbc.JdbcSQLNonTransientConnectionException: Conexión rota:
+"java.net.SocketTimeoutException: connect timed out: localhost"​
+Connection is broken: "java.net.SocketTimeoutException: connect timed out: localhost"​
+[90067-214]
+```
+
+Another option is to have the database in in-memory mode but the data will be erased everytime the app is stopped
+and it will be necessary to insert the necessary data each time the app is started.
+
+To achieve this, the application.properties file should have this information instead:
+
+```
+spring.application.name=prices
+
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+```
+
 ## Running Tests
 
 ### Unit Tests
@@ -112,11 +145,6 @@ These tests include both unit and integration tests to ensure comprehensive cove
 ## Integration Tests
 
 Integration tests are designed to test the application as a whole, ensuring that all components work together as expected. They are located in the src/test/java directory and use @SpringBootTest for running the full application context.
-
-Key integration tests include:
-
-- **Controller Integration Tests**: Verify the correctness of REST endpoints.
-- **Service Integration Tests**: Ensure business logic is functioning correctly with real data.
 
 ## API Endpoints
 
