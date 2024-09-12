@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository interface for accessing {@link Price} entities.
@@ -32,11 +32,13 @@ public interface PriceRepository extends JpaRepository<Price, Long> {
      * @param applicationDate The date and time to check for applicable prices.
      * @return A list of {@link Price} entities matching the criteria, ordered by priority.
      */
-    @Query("SELECT p FROM Price p WHERE p.productId = :productId " +
-            "AND p.brandId = :brandId " +
-            "AND :applicationDate BETWEEN p.startDate AND p.endDate " +
-            "ORDER BY p.priority DESC")
-    List<Price> findProductByProductIdBrandIdAndDate(
+    @Query(value = "SELECT * FROM prices p WHERE p.product_id = :productId " +
+            "AND p.brand_id = :brandId " +
+            "AND :applicationDate BETWEEN p.start_date AND p.end_date " +
+            "ORDER BY p.priority DESC " +
+            "LIMIT 1",
+            nativeQuery = true)
+    Optional<Price> findProductByProductIdBrandIdAndDate(
             @Param("productId") Integer productId,
             @Param("brandId") Integer brandId,
             @Param("applicationDate") LocalDateTime applicationDate);
