@@ -1,7 +1,7 @@
 package com.inditex.prices.controller;
 
 import com.inditex.prices.dto.PriceDTO;
-import com.inditex.prices.service.PriceService;
+import com.inditex.prices.service.PriceServiceImpl;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +18,14 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/prices")
 public class PriceController {
 
-    private final PriceService priceService;
+    private final PriceServiceImpl priceService;
 
     /**
-     * Constructs a new {@link PriceController} with the specified {@link PriceService}.
+     * Constructs a new {@link PriceController} with the specified {@link PriceServiceImpl}.
      *
      * @param priceService the service to fetch price information
      */
-    public PriceController(PriceService priceService) {
+    public PriceController(PriceServiceImpl priceService) {
         this.priceService = priceService;
     }
 
