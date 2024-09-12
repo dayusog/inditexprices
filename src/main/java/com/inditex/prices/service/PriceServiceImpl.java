@@ -16,7 +16,7 @@ import java.util.Optional;
  * </p>
  */
 @Service
-public class PriceService {
+public class PriceServiceImpl implements PriceService{
 
     @Autowired
     private PriceRepository priceRepository;
